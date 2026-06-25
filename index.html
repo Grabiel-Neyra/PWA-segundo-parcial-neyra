@@ -1,378 +1,265 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Divisor de Gastos</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="shortcut icon" href="icons/icon-192.png" type="image/png" />
-  </head>
 
-  <body>
-    <header></header>
-    <main>
-      <div class="estado-conexion">
-        <span class="punto"></span>
-        <p id="textoConexion">Online</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Divisor de Gastos</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="shortcut icon" href="icons/icon-192.png" type="image/png" />
+</head>
+
+<body>
+  <main>
+    <div class="estado-conexion">
+      <span class="punto"></span>
+      <p id="textoConexion">Online</p>
+    </div>
+
+    <section id="vista-salidas">
+      <div class="contenedor">
+        <div class="salidas-header">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-receipt w-5 h-5 text-primary" data-source-location="pages/Home:45:10"
+            data-dynamic-content="false">
+            <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path>
+            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
+            <path d="M12 17.5v-11"></path>
+          </svg>
+          <h2>Divisor de Gastos</h2>
+        </div>
+        <p>Tus salidas</p>
+        <div class="salidas" id="listaSalidas"></div>
+        <button id="btnNuevaSalida">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </button>
       </div>
+    </section>
 
-      <!-- VISTA 1: Lista de Salidas -->
-      <section id="vista-salidas">
-        <div class="contenedor">
-          <div class="salidas-header">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-receipt w-5 h-5 text-primary"
-              data-source-location="pages/Home:45:10"
-              data-dynamic-content="false"
-            >
-              <path
-                d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
-              ></path>
-              <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
-              <path d="M12 17.5v-11"></path>
+    <section id="vista-crearsalidas" class="hiden">
+      <div class="contenedor">
+        <div>
+          <button id="btnVolverDesdeCrear">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
             </svg>
-            <h2>Divisor de Gastos</h2>
+            Volver
+          </button>
+        </div>
+        <div>
+          <h2>Nueva salida</h2>
+          <p>Completar los datos para generar una nueva salida</p>
+        </div>
+        <div>
+          <form id="formSalida">
+            <div>
+              <label for="nombre-salida">Nombre de la salida</label>
+              <input type="text" name="nombre-salida" id="nombre-salida" />
+            </div>
+            <div>
+              <label for="fecha-salida">Fecha</label>
+              <input type="date" name="fecha-salida" id="fecha-salida" />
+            </div>
+            <div>
+              <label for="ubicacion">Ubicacion</label>
+              <input type="text" name="ubicacion" id="ubicacion" />
+              <button type="button" id="btnUsarUbicacion">
+                Usar mi ubicación actual
+              </button>
+            </div>
+            <div>
+              <label for="personas">Agrega las personas</label>
+              <input type="text" id="personas" name="personas" />
+              <button type="button" id="btnAgregarPersona">+</button>
+            </div>
+            <div id="listaPersonasNuevas" class="chips"></div>
+            <button type="submit" id="btnCrearSalida">Crear Salida</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="vista-adminsalida" class="hiden">
+      <div class="contenedor">
+        <button id="btnVolverDesdeAdmin">Volver</button>
+
+        <h2 id="adminNombreSalida"></h2>
+
+        <div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+            </svg>
+            <p id="adminFecha">Fecha de la salida</p>
           </div>
-          <p>Tus salidas</p>
-          <div class="salidas" id="listaSalidas"></div>
-          <button id="btnNuevaSalida">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            <p id="adminUbicacion">Ubicacion</p>
+          </div>
+        </div>
+        <div>
+          <p>Participantes</p>
+          <div class="participantes" id="adminParticipantes"></div>
+        </div>
+        <div>
+          <p>Total Gastado</p>
+          <span class="total-gastado" id="adminTotalGastado"></span>
+        </div>
+        <div>
+          <button id="btnAgregarGasto">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Agregar Gasto
+          </button>
+          <button id="btnDividir">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4.499 11.998h15m-7.5-6.75h.008v.008h-.008v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM12 18.751h.007v.007H12v-.007Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+            </svg>
+            Dividir
+          </button>
+        </div>
+        <p>
+          Gastos(<span class="total-gastos" id="cantidadGastos">0</span>)
+        </p>
+        <div class="gastos" id="listaGastosAdmin">
+        </div>
+      </div>
+    </section>
+
+    <section id="vista-dividirgastos" class="hiden">
+      <div class="contenedor">
+        <button id="btnVolverDesdeDividir">Volver</button>
+        <div>
+          <h2>Resumen de los gastos divididos</h2>
+          <button id="btnEscucharResumen">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
             </svg>
           </button>
         </div>
-      </section>
-
-      <!-- VISTA 2: Crear Salida -->
-      <section id="vista-crearsalidas" class="hiden">
-        <div class="contenedor">
-          <div>
-            <button id="btnVolverDesdeCrear">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
-                />
-              </svg>
-              Volver
-            </button>
-          </div>
-          <div>
-            <h2>Nueva salida</h2>
-            <p>Completar los datos para generar una nueva salida</p>
-          </div>
-          <div>
-            <form id="formSalida">
-              <div>
-                <label for="nombre-salida">Nombre de la salida</label>
-                <input type="text" name="nombre-salida" id="nombre-salida" />
-              </div>
-              <div>
-                <label for="fecha-salida">Fecha</label>
-                <input type="date" name="fecha-salida" id="fecha-salida" />
-              </div>
-              <div>
-                <label for="ubicacion">Ubicacion</label>
-                <input type="text" name="ubicacion" id="ubicacion" />
-                <button type="button" id="btnUsarUbicacion">
-                  Usar mi ubicación actual
-                </button>
-              </div>
-              <div>
-                <label for="personas">Agrega las personas</label>
-                <input type="text" id="personas" name="personas" />
-                <button type="button" id="btnAgregarPersona">+</button>
-              </div>
-              <div id="listaPersonasNuevas" class="chips"></div>
-              <button type="submit" id="btnCrearSalida">Crear Salida</button>
-            </form>
-          </div>
+        <div class="divicion-porpersona" id="saldosPorPersona">
+          <p>Saldos por persona</p>
         </div>
-      </section>
-
-      <!-- VISTA 3: Administrar Salida (detalle) -->
-      <section id="vista-adminsalida" class="hiden">
-        <div class="contenedor">
-          <button id="btnVolverDesdeAdmin">Volver</button>
-
-          <h2 id="adminNombreSalida"></h2>
-
-          <div>
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-                />
-              </svg>
-              <p id="adminFecha">Fecha de la salida</p>
-            </div>
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                />
-              </svg>
-              <p id="adminUbicacion">Ubicacion</p>
-            </div>
-          </div>
-          <div>
-            <p>Participantes</p>
-            <div class="participantes" id="adminParticipantes"></div>
-          </div>
-          <div>
-            <p>Total Gastado</p>
-            <span class="total-gastado" id="adminTotalGastado"></span>
-          </div>
-          <div>
-            <button id="btnAgregarGasto">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
-                />
-              </svg>
-              Agregar Gasto
-            </button>
-            <button id="btnDividir">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.499 11.998h15m-7.5-6.75h.008v.008h-.008v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM12 18.751h.007v.007H12v-.007Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                />
-              </svg>
-              Dividir
-            </button>
-          </div>
-          <div class="gastos" id="listaGastosAdmin">
-            <p>
-              Gastos(<span class="total-gastos" id="cantidadGastos">0</span>)
-            </p>
-          </div>
+        <div class="deudas" id="listaDeudas">
+          <p>Quienes tienen que pagar</p>
         </div>
-      </section>
-
-      <!-- VISTA 4: Dividir Gastos (resumen de deudas) -->
-      <section id="vista-dividirgastos" class="hiden">
-        <div class="contenedor">
-          <button id="btnVolverDesdeDividir">Volver</button>
-          <div>
-            <h2>Resumen de los gastos divididos</h2>
-            <button id="btnEscucharResumen">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
-                />
-              </svg>
-            </button>
-          </div>
-          <div class="divicion-porpersona" id="saldosPorPersona">
-            <p>Saldos por persona</p>
-          </div>
-          <div class="deudas" id="listaDeudas">
-            <p>Quienes tienen que pagar</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- VISTA 5: Resumen General -->
-      <section id="vista-resumen" class="hiden">
-        <div class="contenedor">
-          <div>
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z"
-                />
-              </svg>
-              <p>Resumen General</p>
-            </div>
-            <p>Vista rápida de todas tus salidas</p>
-          </div>
-          <div>
-            <div>
-              <p>Total de salidas</p>
-              <span class="total-salidas" id="resumenTotalSalidas"></span>
-            </div>
-            <div>
-              <p>Total gastado</p>
-              <span class="total-gastado" id="resumenTotalGastado"></span>
-            </div>
-          </div>
-          <div class="resumen-salidas" id="resumenListaSalidas">
-            <p>Resumen de salidas</p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <div id="modalGasto" class="hiden">
-      <div>
-        <button id="btnCerrarModal">✕</button>
-        <h2>Nuevo Gasto</h2>
       </div>
-      <form id="formGasto">
+    </section>
+
+    <section id="vista-resumen" class="hiden">
+      <div class="contenedor">
         <div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z" />
+            </svg>
+            <p>Resumen General</p>
+          </div>
+          <p>Vista rápida de todas tus salidas</p>
+        </div>
+        <div>
+          <div>
+            <p>Total de salidas</p>
+            <span class="total-salidas" id="resumenTotalSalidas"></span>
+          </div>
+          <div>
+            <p>Total gastado</p>
+            <span class="total-gastado" id="resumenTotalGastado"></span>
+          </div>
+        </div>
+        <div class="resumen-salidas" id="resumenListaSalidas">
+          <p>Resumen de salidas</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalGasto" class="hiden">
+    <div class="modal-card">
+
+      <div class="modal-header">
+        <h2>Agregar gasto</h2>
+        <button type="button" id="btnCerrarModal" class="btn-close">✕</button>
+      </div>
+
+      <form id="formGasto" class="modal-form">
+
+        <div class="form-grupo">
           <label for="descripcion-gasto">Descripción</label>
-          <input
-            type="text"
-            id="descripcion-gasto"
-            placeholder="Ej: Carbón y carne"
-          />
+          <input type="text" id="descripcion-gasto" placeholder="Ej: Carbón y carne" />
         </div>
-        <div>
+
+        <div class="form-grupo">
           <label for="monto-gasto">Monto</label>
-          <input type="number" id="monto-gasto" placeholder="Ej: 1500" />
+          <input type="text" id="monto-gasto" placeholder="Ej: 1500" />
         </div>
-        <div>
-          <label>¿Quién pagó?</label>
+
+        <div class="form-grupo">
+          <label for="select-pagador">¿Quién pagó?</label>
           <select id="select-pagador"></select>
         </div>
-        <div>
+
+        <div class="form-grupo">
           <label>¿Entre quiénes se divide?</label>
-          <div id="checkboxes-participantes"></div>
+          <div id="checkboxes-participantes" class="checkbox-list"></div>
         </div>
-        <button type="submit">Guardar Gasto</button>
+
+        <div class="modal-actions">
+          <button type="submit">Guardar gasto</button>
+        </div>
+
       </form>
+
     </div>
+  </div>
 
-    <nav id="menu-nav">
-      <button class="nav-btn activo" data-vista="vista-salidas">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
-          />
-        </svg>
-        Salidas
-      </button>
-      <button class="nav-btn" data-vista="vista-crearsalidas">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-        Crear
-      </button>
-      <button class="nav-btn" data-vista="vista-resumen">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z"
-          />
-        </svg>
-        Resumen
-      </button>
-    </nav>
+  <nav id="menu-nav">
+    <button class="nav-btn activo" data-vista="vista-salidas">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+      </svg>
+      Salidas
+    </button>
+    <button class="nav-btn" data-vista="vista-crearsalidas">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>
+      Crear
+    </button>
+    <button class="nav-btn" data-vista="vista-resumen">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z" />
+      </svg>
+      Resumen
+    </button>
+  </nav>
 
-    <script src="js/storage.js" type="module" defer></script>
-    <script src="js/api.js" type="module" defer></script>
-    <script src="js/app.js" type="module" defer></script>
-  </body>
+  <script src="js/storage.js" type="module" defer></script>
+  <script src="js/api.js" type="module" defer></script>
+  <script src="js/app.js" type="module" defer></script>
+</body>
+
 </html>

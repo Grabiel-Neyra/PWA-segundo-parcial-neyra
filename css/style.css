@@ -7,120 +7,26 @@
     color: #fafafa;
 }
 
-body{
+body {
     background-color: #121212;
-    font-family: "Inter";
+    font-family: "Inter", sans-serif;
 }
 
-main{
+main {
     height: 90vh;
     overflow: auto;
     padding-bottom: 6rem;
 }
 
-.estado-conexion{
-    width: 100%;
-    height: 8%;
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    gap: 1rem;
-    font-size: 1.3em;
-    background-color:rgb(18, 183, 106, .15);
-}
-
-.estado-conexion p{
-    color: #12b76a;
-}
-
-.estado-conexion .punto{
-    width: .8rem;
-    height: .8rem;
-    border-radius: 2rem;
-    background-color: #12b76a;
-}
-
-section{
+section {
     margin-top: 2rem;
 }
 
-#vista-salidas .contenedor .salidas-header{
-    display: flex;
-    align-items: center;
-    font-size: 1.2em;
-    margin-bottom: .8rem;
-    gap: .5rem;
+.hiden {
+    display: none !important;
 }
 
-.salidas-header p{
-    color: #8c8c8c;
-}
-
-#listaSalidas{
-    margin-top: 2rem;
-}
-
-.salidas-header svg path{
-    color: #12b76a;
-}
-
-.card-salida{
-    background-color: #1a1a1a;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-    min-height:5rem; 
-}
-
-.card-salida-top{
-    font-size: 1.2em;
-    margin-bottom: .8rem;
-}
-
-.card-salida-meta{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.card-salida-meta .fecha svg{
-    width: 1.5rem;
-}
-
-.fecha{
-    display:flex ;
-    align-items: center;
-    width: 50%;
-    gap: .5rem;
-}
-
-#btnNuevaSalida{
-    position: absolute;
-    width: 3rem;
-    height: 3rem;
-    top: 25rem;
-    right: 0rem;
-    background-color: #12b76a;
-    border-radius: 1rem;
-    border: none;
-    padding: .5rem;
-}
-
-#btnVolverDesdeCrear{
-    display: flex;
-    align-items:center ;
-    gap: .5rem;
-
-}
-
-#btnVolverDesdeCrear svg{
-    width: 1.5rem;
-}
-
-#btnVolverDesdeCrear svg path{
-    color: #8c8c8c;
-}
-
-.contenedor{
+.contenedor {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -129,11 +35,47 @@ section{
     margin-left: auto;
 }
 
+.estado-conexion {
+    width: 100%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.3em;
+    background-color: rgb(18, 183, 106, .15);
+}
+
+.offline-contenedor {
+    background-color: rgba(183, 18, 18, 0.15) !important;
+}
+
+.offline {
+    background-color: #b71212;
+}
+
+.offline-p {
+    color: #b71212 !important;
+}
 
 
+.estado-conexion p {
+    color: #12b76a;
+}
+
+.estado-conexion .punto {
+    width: .8rem;
+    height: .8rem;
+    border-radius: 2rem;
+    background-color: #12b76a;
+}
+
+.punto.offline {
+    background-color: #ef4444;
+}
 
 
-#menu-nav{
+#menu-nav {
     padding: 1rem 0;
     height: 15vh;
     display: flex;
@@ -146,7 +88,7 @@ section{
     width: 100%;
 }
 
-.nav-btn{
+.nav-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -154,34 +96,111 @@ section{
     background-color: transparent;
     border: none;
     font-size: 1.3em;
-   
-
 }
 
-.nav-btn svg{
+.nav-btn svg {
     width: 2.5rem;
     padding-bottom: .3rem;
+}
 
+.nav-btn.activo {
+    color: #12b76a;
 }
 
 
-.hiden{
-    display: none;
+
+#vista-salidas .contenedor .salidas-header {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    margin-bottom: .8rem;
+    gap: .5rem;
+}
+
+.salidas-header p {
+    color: #8c8c8c;
+}
+
+.salidas-header svg path {
+    color: #12b76a;
+}
+
+#listaSalidas {
+    margin-top: 2rem;
+}
+
+
+.card-salida {
+    background-color: #1a1a1a;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    min-height: 5rem;
+    margin-bottom: .8rem;
+    cursor: pointer;
+    border: 1px solid #2b2b2b;
+    transition: border-color .2s;
+}
+
+.card-salida:hover {
+    border-color: #3a3a3a;
+}
+
+.card-salida-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    margin-bottom: .8rem;
+}
+
+.card-total {
+    color: #12b76a;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.card-salida-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.fecha {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    gap: .5rem;
+}
+
+.card-salida-meta .fecha svg {
+    width: 1.5rem;
+}
+
+#btnNuevaSalida {
+    position: fixed;
+    width: 3.5rem;
+    height: 3.5rem;
+    bottom: 7.5rem;
+    right: 2rem;
+    background-color: #12b76a;
+    border-radius: 1rem;
+    border: none;
+    padding: .5rem;
+    cursor: pointer;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#btnNuevaSalida svg {
+    width: 1.5rem;
 }
 
 
 
 #vista-crearsalidas .contenedor {
     gap: 1.5rem;
-}
-
-#btnVolverDesdeCrear {
-    background: transparent;
-    border: none;
-    color: #8c8c8c;
-    font-size: 1rem;
-    text-align: left;
-    padding: 0;
 }
 
 #vista-crearsalidas h2 {
@@ -194,13 +213,32 @@ section{
     color: #8c8c8c;
 }
 
+
+#btnVolverDesdeCrear {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: transparent;
+    border: none;
+    color: #8c8c8c;
+    font-size: 1rem;
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+}
+
+#btnVolverDesdeCrear svg {
+    width: 1.5rem;
+}
+
+
 #formSalida {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-#formSalida > div {
+#formSalida>div {
     display: flex;
     flex-direction: column;
     gap: .5rem;
@@ -210,8 +248,6 @@ section{
     font-size: .95rem;
     font-weight: 600;
 }
-
-/* Inputs */
 
 #formSalida input {
     width: 100%;
@@ -233,7 +269,6 @@ section{
     border-color: #12b76a;
 }
 
-/* Ubicación */
 
 #formSalida div:has(#ubicacion) {
     display: grid;
@@ -252,9 +287,15 @@ section{
     border: 1px solid #333;
     background-color: #1a1a1a;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Personas */
+#btnUsarUbicacion svg {
+    width: 1.2rem;
+}
+
 
 #formSalida div:has(#personas) {
     display: grid;
@@ -276,7 +317,6 @@ section{
     cursor: pointer;
 }
 
-/* Chips */
 
 .chips {
     display: flex;
@@ -289,9 +329,9 @@ section{
     padding: .5rem 1rem;
     border-radius: 999px;
     font-size: .9rem;
+    cursor: pointer;
 }
 
-/* Botón crear */
 
 #btnCrearSalida {
     width: 100%;
@@ -308,45 +348,355 @@ section{
 #btnCrearSalida:hover {
     background-color: #0fa15d;
 }
+
+
+
+#vista-adminsalida .contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+#btnVolverDesdeAdmin {
+    background: none;
+    border: none;
+    color: #8c8c8c;
+    font-size: 1rem;
+    text-align: left;
+    width: fit-content;
+    cursor: pointer;
+}
+
+
+#adminNombreSalida {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+
+#vista-adminsalida .contenedor>div:nth-of-type(1) {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+#vista-adminsalida .contenedor>div:nth-of-type(1)>div {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+#vista-adminsalida .contenedor>div:nth-of-type(1) svg {
+    width: 1rem;
+    color: #8c8c8c;
+}
+
+#vista-adminsalida .contenedor>div:nth-of-type(1) p {
+    color: #8c8c8c;
+    font-size: .9rem;
+}
+
+
+#vista-adminsalida .contenedor>div:nth-of-type(2)>p {
+    text-transform: uppercase;
+    font-size: .85rem;
+    letter-spacing: .05em;
+    color: #9ca3af;
+    margin-bottom: .8rem;
+}
+
+.participantes {
+    display: flex;
+    gap: .8rem;
+}
+
+.participantes span {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.participantes span:nth-child(1) {
+    background: rgba(14, 116, 214, .25);
+    color: #38bdf8;
+}
+
+.participantes span:nth-child(2) {
+    background: rgba(245, 158, 11, .25);
+    color: #f59e0b;
+}
+
+.participantes span:nth-child(3) {
+    background: rgba(236, 72, 153, .25);
+    color: #ec4899;
+}
+
+.participantes span:nth-child(4) {
+    background: rgba(16, 185, 129, .25);
+    color: #34d399;
+}
+
+/* Total gastado */
+#vista-adminsalida .contenedor>div:nth-of-type(3) {
+    background: rgba(18, 183, 106, .08);
+    border: 1px solid rgba(18, 183, 106, .25);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+#vista-adminsalida .contenedor>div:nth-of-type(3) p {
+    color: #8c8c8c;
+    margin-bottom: .5rem;
+}
+
+#adminTotalGastado {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #12b76a;
+}
+
+
+#vista-adminsalida .contenedor>div:nth-of-type(4) {
+    display: flex;
+    gap: .8rem;
+}
+
+#btnAgregarGasto {
+    flex: 1;
+    height: 3.5rem;
+    background: #12b76a;
+    border: none;
+    border-radius: .9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#btnDividir {
+    width: 6rem;
+    background: #262626;
+    border: none;
+    border-radius: .9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#btnAgregarGasto svg,
+#btnDividir svg {
+    width: 1rem;
+}
+
+
+.gastos {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gastos>p:first-child {
+    text-transform: uppercase;
+    font-size: .85rem;
+    letter-spacing: .05em;
+    color: #9ca3af;
+    font-weight: 700;
+}
+
+
+.card-gasto {
+    background: #1a1a1a;
+    border: 1px solid #2b2b2b;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.card-gasto>div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-gasto h4 {
+    font-size: 1.1rem;
+}
+
+.card-gasto>div:first-child span {
+    color: #12b76a;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.card-gasto p {
+    color: #8c8c8c;
+    font-size: .9rem;
+}
+
+.btn-eliminar {
+    align-self: flex-end;
+    margin-top: .5rem;
+    background: #2a1515;
+    color: #ff4d4d;
+    border: 1px solid rgba(255, 77, 77, .3);
+    border-radius: .6rem;
+    padding: .5rem 1rem;
+    cursor: pointer;
+}
+
+
+
+#btnVolverDesdeDividir {
+    background: none;
+    border: none;
+    color: #8c8c8c;
+    font-size: 1rem;
+    text-align: left;
+    width: fit-content;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.divicion-porpersona {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.divicion-porpersona>p {
+    text-transform: uppercase;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+}
+
+.divicion-porpersona>div {
+    background: #1a1a1a;
+    border-radius: 1rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid #2b2b2b;
+}
+
+.divicion-porpersona>div:has(span[style*="red"]) {
+    background: rgba(120, 0, 0, .15);
+    border-color: rgba(255, 0, 0, .25);
+}
+
+.divicion-porpersona>div:has(span[style*="green"]) {
+    background: rgba(18, 183, 106, .08);
+    border-color: rgba(18, 183, 106, .25);
+}
+
+.divicion-porpersona>div p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.divicion-porpersona span {
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+
+.deudas {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.deudas>p:first-child {
+    text-transform: uppercase;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+}
+
+.deudas>p:not(:first-child) {
+    background: #1a1a1a;
+    border: 1px solid #2b2b2b;
+    border-radius: 1rem;
+    padding: 1rem;
+    position: relative;
+    font-size: 1rem;
+}
+
+.deudas>p:not(:first-child)::after {
+    content: "✓";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2rem;
+    height: 2rem;
+    border-radius: .6rem;
+    background: #262626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8c8c8c;
+}
+
+
+
 #vista-resumen {
     margin-top: 2rem;
 }
 
-#vista-resumen .contenedor > div:first-child {
+
+#vista-resumen .contenedor>div:first-child {
     margin-bottom: 2rem;
 }
 
-#vista-resumen .contenedor > div:first-child > div {
+#vista-resumen .contenedor>div:first-child>div {
     display: flex;
     align-items: center;
     gap: .7rem;
     margin-bottom: .4rem;
 }
 
-#vista-resumen .contenedor > div:first-child svg {
+#vista-resumen .contenedor>div:first-child svg {
     width: 1.5rem;
     color: #12b76a;
 }
 
-#vista-resumen .contenedor > div:first-child > div p {
+#vista-resumen .contenedor>div:first-child>div p {
     font-size: 1.8rem;
     font-weight: 700;
 }
 
-#vista-resumen .contenedor > div:first-child > p {
+#vista-resumen .contenedor>div:first-child>p {
     color: #8c8c8c;
     font-size: .95rem;
 }
 
-/* ===== CARDS SUPERIORES ===== */
 
-#vista-resumen .contenedor > div:nth-child(2) {
+#vista-resumen .contenedor>div:nth-child(2) {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
 }
 
-#vista-resumen .contenedor > div:nth-child(2) > div {
+#vista-resumen .contenedor>div:nth-child(2)>div {
     flex: 1;
     background: #1a1a1a;
     border: 1px solid #2b2b2b;
@@ -354,7 +704,7 @@ section{
     padding: 1rem;
 }
 
-#vista-resumen .contenedor > div:nth-child(2) p {
+#vista-resumen .contenedor>div:nth-child(2) p {
     color: #8c8c8c;
     font-size: .8rem;
     margin-bottom: .5rem;
@@ -373,15 +723,13 @@ section{
     display: block;
 }
 
-/* ===== LISTADO ===== */
-
 .resumen-salidas {
     display: flex;
     flex-direction: column;
     gap: .8rem;
 }
 
-.resumen-salidas > p {
+.resumen-salidas>p {
     font-size: .9rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -390,20 +738,12 @@ section{
     margin-bottom: .5rem;
 }
 
-/* ===== ITEM RESUMEN ===== */
-
 .resumen-salidas .card-salida {
     background: #1a1a1a;
     border: 1px solid #2b2b2b;
     border-radius: 1rem;
     padding: 1rem;
     min-height: auto;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.resumen-salidas .card-salida:hover {
-    border-color: #3a3a3a;
 }
 
 .resumen-salidas .card-salida h3 {
@@ -423,321 +763,127 @@ section{
 }
 
 
-#vista-adminsalida .contenedor{
-    display:flex;
-    flex-direction:column;
-    gap:1.5rem;
+#modalGasto {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 1rem;
 }
 
-/* Volver */
-
-#btnVolverDesdeAdmin{
-    background:none;
-    border:none;
-    color:#8c8c8c;
-    font-size:1rem;
-    text-align:left;
-    width:fit-content;
+.modal-card {
+    height: 100%;
+    overflow: scroll;
+    width: 100%;
+    max-width: 400px;
+    background: #1b1b1b;
+    border: 1px solid #2f2f2f;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
 }
 
-#btnVolverDesdeAdmin::before{
-    content:"← ";
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 
-/* Título */
-
-#adminNombreSalida{
-    font-size:2rem;
-    font-weight:700;
+.modal-header h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
 }
 
-/* Fecha y ubicación */
-
-#vista-adminsalida .contenedor > div:nth-of-type(1){
-    display:flex;
-    gap:1rem;
-    flex-wrap:wrap;
+.btn-close {
+    background: transparent;
+    border: none;
+    color: #8d8d8d;
+    font-size: 1.3rem;
+    cursor: pointer;
 }
 
-#vista-adminsalida .contenedor > div:nth-of-type(1) > div{
-    display:flex;
-    align-items:center;
-    gap:.4rem;
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-#vista-adminsalida .contenedor > div:nth-of-type(1) svg{
-    width:1rem;
-    color:#8c8c8c;
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
 }
 
-#vista-adminsalida .contenedor > div:nth-of-type(1) p{
-    color:#8c8c8c;
-    font-size:.9rem;
+.form-grupo label {
+    color: #fff;
+    font-size: .95rem;
+    font-weight: 600;
 }
 
-/* Participantes */
-
-#vista-adminsalida .contenedor > div:nth-of-type(2) > p{
-    text-transform:uppercase;
-    font-size:.85rem;
-    letter-spacing:.05em;
-    color:#9ca3af;
-    margin-bottom:.8rem;
+.form-grupo input,
+.form-grupo select {
+    height: 56px;
+    width: 100%;
+    background: #262626;
+    border: 1px solid #353535;
+    border-radius: 14px;
+    padding: 0 1rem;
+    color: #fff;
+    font-size: 1rem;
 }
 
-.participantes{
-    display:flex;
-    gap:.8rem;
+.form-grupo input::placeholder {
+    color: #888;
 }
 
-.participantes span{
-    width:2.5rem;
-    height:2.5rem;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-weight:600;
+.form-grupo input:focus,
+.form-grupo select:focus {
+    outline: none;
+    border-color: #12b76a;
 }
 
-/* colores similares a la captura */
-
-.participantes span:nth-child(1){
-    background:rgba(14,116,214,.25);
-    color:#38bdf8;
+.checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
 }
 
-.participantes span:nth-child(2){
-    background:rgba(245,158,11,.25);
-    color:#f59e0b;
+.checkbox-list label {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    background: #262626;
+    border: 1px solid #353535;
+    border-radius: 14px;
+    padding: 1rem;
+    color: white;
+    cursor: pointer;
 }
 
-.participantes span:nth-child(3){
-    background:rgba(236,72,153,.25);
-    color:#ec4899;
+.checkbox-list input[type="checkbox"] {
+    accent-color: #12b76a;
+    width: 18px;
+    height: 18px;
 }
 
-/* Total gastado */
-
-#vista-adminsalida .contenedor > div:nth-of-type(3){
-    background:rgba(18,183,106,.08);
-    border:1px solid rgba(18,183,106,.25);
-    border-radius:1rem;
-    padding:1rem;
+.modal-actions button {
+    width: 100%;
+    height: 56px;
+    border: none;
+    border-radius: 14px;
+    background: #12b76a;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
 }
 
-#vista-adminsalida .contenedor > div:nth-of-type(3) p{
-    color:#8c8c8c;
-    margin-bottom:.5rem;
-}
-
-#adminTotalGastado{
-    display:block;
-    font-size:2rem;
-    font-weight:700;
-    color:#12b76a;
-}
-
-/* Botones */
-
-#vista-adminsalida .contenedor > div:nth-of-type(4){
-    display:flex;
-    gap:.8rem;
-}
-
-#btnAgregarGasto{
-    flex:1;
-    height:3.5rem;
-    background:#12b76a;
-    border:none;
-    border-radius:.9rem;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:.5rem;
-    font-weight:600;
-}
-
-#btnDividir{
-    width:6rem;
-    background:#262626;
-    border:none;
-    border-radius:.9rem;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:.5rem;
-    font-weight:600;
-}
-
-#btnAgregarGasto svg,
-#btnDividir svg{
-    width:1rem;
-}
-
-/* Sección gastos */
-
-.gastos{
-    display:flex;
-    flex-direction:column;
-    gap:1rem;
-}
-
-.gastos > p:first-child{
-    text-transform:uppercase;
-    font-size:.85rem;
-    letter-spacing:.05em;
-    color:#9ca3af;
-    font-weight:700;
-}
-
-/* Card gasto */
-
-.card-gasto{
-    background:#1a1a1a;
-    border:1px solid #2b2b2b;
-    border-radius:1rem;
-    padding:1rem;
-    display:flex;
-    flex-direction:column;
-    gap:.5rem;
-}
-
-/* encabezado */
-
-.card-gasto > div:first-child{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.card-gasto h4{
-    font-size:1.1rem;
-}
-
-.card-gasto > div:first-child span{
-    color:#12b76a;
-    font-size:1.5rem;
-    font-weight:700;
-}
-
-/* textos */
-
-.card-gasto p{
-    color:#8c8c8c;
-    font-size:.9rem;
-}
-
-/* eliminar */
-
-.btn-eliminar{
-    align-self:flex-end;
-    margin-top:.5rem;
-    background:#2a1515;
-    color:#ff4d4d;
-    border:1px solid rgba(255,77,77,.3);
-    border-radius:.6rem;
-    padding:.5rem 1rem;
-    cursor:pointer;
-}
-
-/* ==========================
-   SALDOS POR PERSONA
-========================== */
-
-.divicion-porpersona > p{
-    text-transform:uppercase;
-    font-size:.85rem;
-    font-weight:700;
-    letter-spacing:.05em;
-    color:#9ca3af;
-    margin-bottom:1rem;
-}
-
-.divicion-porpersona{
-    display:flex;
-    flex-direction:column;
-    gap:1rem;
-}
-
-/* Cada persona */
-
-.divicion-porpersona > div{
-    background:#1a1a1a;
-    border-radius:1rem;
-    padding:1rem 1.2rem;
-    border:1px solid #2b2b2b;
-}
-
-/* Si tiene deuda */
-
-.divicion-porpersona > div:has(span[style*="red"]){
-    background:rgba(120,0,0,.15);
-    border-color:rgba(255,0,0,.25);
-}
-
-/* Si le deben */
-
-.divicion-porpersona > div:has(span[style*="green"]){
-    background:rgba(18,183,106,.08);
-    border-color:rgba(18,183,106,.25);
-}
-
-.divicion-porpersona > div p{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:1.1rem;
-    font-weight:600;
-}
-
-.divicion-porpersona span{
-    font-weight:700;
-    font-size:1.4rem;
-}
-
-/* ==========================
-   TRANSACCIONES
-========================== */
-
-.deudas > p:first-child{
-    text-transform:uppercase;
-    font-size:.85rem;
-    font-weight:700;
-    letter-spacing:.05em;
-    color:#9ca3af;
-    margin-bottom:1rem;
-}
-
-.deudas{
-    display:flex;
-    flex-direction:column;
-    gap:.8rem;
-}
-
-.deudas > p:not(:first-child){
-    background:#1a1a1a;
-    border:1px solid #2b2b2b;
-    border-radius:1rem;
-    padding:1rem;
-    position:relative;
-    font-size:1rem;
-}
-
-/* Botón check visual */
-
-.deudas > p:not(:first-child)::after{
-    content:"✓";
-    position:absolute;
-    right:1rem;
-    top:50%;
-    transform:translateY(-50%);
-    width:2rem;
-    height:2rem;
-    border-radius:.6rem;
-    background:#262626;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#8c8c8c;
+.modal-actions button:hover {
+    opacity: .9;
 }

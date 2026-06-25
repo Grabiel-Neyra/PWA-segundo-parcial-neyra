@@ -1,6 +1,6 @@
-const CACHE_NAME = 'divisor-gastos-v1';
+const CACHE_NAME = 'mi-cache-v1';
 
-const listaDeArchivos = [
+const ARCHIVOS = [
     './',
     './index.html',
     './css/style.css',
@@ -12,34 +12,34 @@ const listaDeArchivos = [
     './icons/icon-512.png'
 ];
 
-self.addEventListener('install', e => {
-    const cache = caches.open(CACHE_NAME).then(cache => {
-        return cache.addAll(listaDeArchivos)
-    })
-    e.waitUntil(cache)
-})
+self.addEventListener('install', event => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(cache => {
+            return cache.addAll(ARCHIVOS);
+        })
+    );
+});
 
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        caches.keys().then(keys => {
+            return Promise.all(
+                keys.filter(key => key !== CACHE_NAME)
+                    .map(key => caches.delete(key))
+            );
+        })
+    );
+});
 
-self.addEventListener('activate', e => {
-    const limpiar = caches.keys().then(keys => {
-        return Promise.all(
-            keys.map(key => {
-                if (key !== CACHE_NAME) {
-                    return cache.delete(key)
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        caches.match(event.request).then(cached => {
+            if (cached) return cached;
+            return fetch(event.request).catch(() => {
+                if (event.request.destination === 'document') {
+                    return caches.match('./offline.html');
                 }
-            })
-        )
-    })
-})
-
-
-self.addEventListener('fetch', e => {
-    const respuesta = caches.match(e.request).then(resCache => {
-        if (resCache) {
-            return resCache
-        } else {
-            return fetch(e.request)
-        }
-    })
-    e.respondWith(respuesta)
-})
+            });
+        })
+    );
+});
