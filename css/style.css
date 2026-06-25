@@ -342,6 +342,8 @@ section {
     border-radius: 999px;
     font-size: .9rem;
     cursor: pointer;
+    max-width: 8rem;
+
 }
 
 
