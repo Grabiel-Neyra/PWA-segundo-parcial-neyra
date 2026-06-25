@@ -83,10 +83,18 @@ function crearCardSalida(salida, total) {
 
         <div class="card-salida-meta">
             <span class="fecha">
-                ${salida.fecha}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="svg-card-salida">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                </svg>
+
+            ${salida.fecha}
             </span>
 
-            <span>
+            <span class="alinear">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="svg-card-salida">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
                 ${salida.ubicacion || 'Sin ubicación'}
             </span>
         </div>
@@ -200,7 +208,8 @@ async function abrirDetalleSalida(salida) {
     contenedor.innerHTML = ''
     personas.forEach(persona => {
         const chip = document.createElement('span')
-        chip.textContent = persona.nombre
+        chip.classList.add('chip')
+        chip.textContent = persona.nombre[0]
         contenedor.appendChild(chip)
     })
 
@@ -214,9 +223,7 @@ async function renderizarGastos() {
     const cantidadSpan = document.querySelector('#cantidadGastos')
 
     cantidadSpan.textContent = gastos.length
-    console.log(document.querySelector('#cantidadGastos'))
     contenedor.innerHTML = ''
-    console.log(document.querySelector('#cantidadGastos'))
 
     if (gastos.length === 0) {
         contenedor.innerHTML = '<p>No hay gastos todavia</p>'
@@ -241,7 +248,7 @@ async function renderizarGastos() {
                 <div class="card-gasto-meta">
                     Dividido entre ${gasto.participantes.length} persona/s
                 </div>
-                <button class="btn-eliminar" data-id="${gasto.id}">Eliminar</button>
+                <button class="btn-eliminar" id="${gasto.id}">Eliminar</button>
             </div>
         `
         contenedor.appendChild(card)
@@ -339,7 +346,7 @@ async function renderizarResumenDeudas() {
 
     Object.values(balances).forEach(persona => {
         const div = document.createElement('div')
-        const balance = persona.balance.toFixed(2)
+        const balance = persona.balance
 
         if (persona.balance > 0) {
             div.classList.add('saldo-card', 'positivo')
@@ -364,9 +371,8 @@ async function renderizarResumenDeudas() {
             div.innerHTML = `
                 <div class="saldo-card-info">
                     <h4>${persona.nombre}</h4>
-                    <span class="saldo-estado">esta al dia</span>
+                    <span class="saldo-estado">No le debe a nadie</span>
                 </div>
-                <span class="saldo-monto">$0</span>
             `
         }
         contenedorSaldos.appendChild(div)
@@ -389,13 +395,23 @@ async function renderizarResumenDeudas() {
             item.classList.add('transaccion-item')
             item.innerHTML = `
                 <div class="transaccion-texto">
-                    <span class="nombre">${deudor.nombre}</span>
-                    <span class="label"> le debe </span>
-                    <span class="monto">$${monto.toFixed(2)}</span>
-                    <span class="label"> a </span>
-                    <span class="nombre">${acreedor.nombre}</span>
-                </div>
+                    <p class="p-transaccion">
+                        <span class="nombre">${deudor.nombre}</span>
+                        <span class="label"> le debe </span>
+                        <span class="monto">$${monto}</span>
+                        <span class="label"> a </span>
+                        <span class="nombre">${acreedor.nombre}</span>
+                    </p>
+                        </div>
+                    <button class="btn-pague">Pague</button>
             `
+            const texto = item.querySelector('.p-transaccion')
+            const pague = item.querySelector('.btn-pague')
+
+            pague.addEventListener('click', () => {
+                texto.classList.add('linea')
+            })
+
             contenedorDeudas.appendChild(item)
         })
     })
