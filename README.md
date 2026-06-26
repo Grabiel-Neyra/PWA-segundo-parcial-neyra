@@ -101,7 +101,7 @@ Por cada gasto, el monto se divide entre los participantes. Quien pagó suma el 
 
 La app está publicada en:
 
-🔗 **[Ver app en Netlify](#)** ← reemplazá con tu URL
+🔗 **[https://grabiel-neyra.github.io/PWA-segundo-parcial-neyra/](#)**
 
 ---
 
